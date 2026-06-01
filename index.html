@@ -13,8 +13,33 @@
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <header>
+      <div class="row">
+        <div class="col-5 m-auto">
+          <form class="d-flex p-3" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="búsqueda de personajes"
+              aria-label="Search"
+              id="buscador"
+            />
+            <button
+              onclick="buscar()"
+              class="btn btn-outline-warning"
+              type="submit"
+            >
+              buscar
+            </button>
+            <div>
+              <ul id="resultado" class="resultado"></ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </header>
     <main>
-      <h1 class="text-center p-5">Galería de Superhéreos</h1>
+      <h1 class="text-center p-4">Galería de Superhéreos</h1>
       <div class="row mt-2" id="rowContainer"></div>
     </main>
     <script src="assets/js/app.js"></script>

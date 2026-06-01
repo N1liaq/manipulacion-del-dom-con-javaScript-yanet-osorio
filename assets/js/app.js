@@ -52,3 +52,32 @@ personajes.forEach((personaje) => {
           
           `;
 });
+
+function buscar() {
+  let query = document.getElementById("buscar").value;
+  console.log(query);
+
+  if (query.tria() === "") {
+    return;
+  }
+  let resultado = {};
+
+  for (let i = 0; i < personajes.length; i++) {
+    if (personajes[i].toLowerCase().includes(query.toLowerCase()))
+      resultado.push(personajes[i]);
+  }
+}
+
+document.getElementById("resultado").innerHTML = "";
+
+if (resultado.length > 0) {
+  for (let i = 0; i < resultado.length; i++) {
+    let li = document.createElement("li");
+    li.textContent = resultado[i];
+    document.getElementById("resultado").appendChild(li);
+  }
+} else {
+  let li = document.createElement("li");
+  li.textContent = "No se encontraron elementos para " + query;
+  document.getElementById(resultado).appendChild(li);
+}
