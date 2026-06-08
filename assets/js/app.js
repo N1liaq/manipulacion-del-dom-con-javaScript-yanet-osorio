@@ -32,52 +32,46 @@ const personajes = [
 ];
 
 const rowContainer = document.querySelector("#rowContainer");
+const cargarPersonajes = (mostrarPersonajes) => {
+  rowContainer.innerHTML = "";
 
-personajes.forEach((personaje) => {
-  rowContainer.innerHTML += `
-              <div class="col-3 my-3 d-flex justify-content-center mb-5" data-id=${personaje.id}>
-            <div class="card p-5" style="width: 25rem">
-              <img
-                src=${personaje.imagen}
-                class="card-img-top"
-                alt=${personaje.nombre}
-                style="height: 350px; object-fit: contain"
-              />
-              <div class="card-body">
-                <h5 class="card-title text-center">${personaje.nombre}</h5>
-                <a href="#" class="btn btn-danger btn-eliminar d-flex justify-content-center mt-4"> Eliminar</a>
+  mostrarPersonajes.forEach((personaje) => {
+    rowContainer.innerHTML += `
+                <div class="col-3 my-3 d-flex justify-content-center mb-5" data-id=${personaje.id}>
+              <div class="card p-5" style="width: 25rem">
+                <img
+                  src=${personaje.imagen}
+                  class="card-img-top"
+                  alt=${personaje.nombre}
+                  style="height: 350px; object-fit: contain"
+                />
+                <div class="card-body">
+                  <h5 class="card-title text-center">${personaje.nombre}</h5>
+                  <a href="#" class="btn btn-danger btn-eliminar d-flex justify-content-center mt-4"> Eliminar</a>
+                </div>
               </div>
             </div>
-          </div>
-          
-          `;
-});
+            
+            `;
+  });
+};
 
-function buscar() {
-  let query = document.getElementById("buscar").value;
-  console.log(query);
+cargarPersonajes(personajes);
+const buscador = document.getElementById("buscador");
+const botonBusqueda = document.getElementById("botonBusqueda");
 
-  if (query.tria() === "") {
-    return;
+const personajeBuscar = (e) => {
+  e.preventDefault();
+  const valorBusqueda = buscador.value.toLowerCase();
+
+  const filtradoPersonaje = personajes.filter((personaje) => {
+    return personaje.nombre.toLowerCase().includes(valorBusqueda);
+  });
+  cargarPersonajes(filtradoPersonaje);
+  if (filtradoPersonaje.length === 0) {
+    rowContainer.innerHTML += `<h5 class="text-center">No se encontraron coincidencias.</h5>`;
+  } else {
+    cargarPersonajes(filtradoPersonaje);
   }
-  let resultado = {};
-
-  for (let i = 0; i < personajes.length; i++) {
-    if (personajes[i].toLowerCase().includes(query.toLowerCase()))
-      resultado.push(personajes[i]);
-  }
-}
-
-document.getElementById("resultado").innerHTML = "";
-
-if (resultado.length > 0) {
-  for (let i = 0; i < resultado.length; i++) {
-    let li = document.createElement("li");
-    li.textContent = resultado[i];
-    document.getElementById("resultado").appendChild(li);
-  }
-} else {
-  let li = document.createElement("li");
-  li.textContent = "No se encontraron elementos para " + query;
-  document.getElementById(resultado).appendChild(li);
-}
+};
+botonBusqueda.addEventListener("click", personajeBuscar);
