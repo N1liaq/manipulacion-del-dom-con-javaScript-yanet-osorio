@@ -31,7 +31,13 @@ const personajes = [
   },
 ];
 
+let copiaPersonajes = [...personajes];
+
 const rowContainer = document.querySelector("#rowContainer");
+const formularioAgregarPersonaje = document.getElementById(
+  "formularioAgregarPersonaje",
+);
+
 const cargarPersonajes = (mostrarPersonajes) => {
   rowContainer.innerHTML = "";
 
@@ -57,6 +63,7 @@ const cargarPersonajes = (mostrarPersonajes) => {
 };
 
 cargarPersonajes(personajes);
+
 const buscador = document.getElementById("buscador");
 const botonBusqueda = document.getElementById("botonBusqueda");
 
@@ -75,3 +82,19 @@ const personajeBuscar = (e) => {
   }
 };
 botonBusqueda.addEventListener("click", personajeBuscar);
+
+formularioAgregarPersonaje.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const nombrePersonaje = formularioAgregarPersonaje.nombre.value;
+  const imagenPersonaje = formularioAgregarPersonaje.imagen.value;
+
+  const nuevoPersonaje = {
+    id: personajes.length + 1,
+    nombre: nombrePersonaje,
+    imagen: imagenPersonaje,
+  };
+
+  personajes.push(nuevoPersonaje);
+
+  cargarPersonajes(personajes);
+});
