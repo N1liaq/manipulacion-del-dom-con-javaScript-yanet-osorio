@@ -46,7 +46,7 @@ const cargarPersonajes = (mostrarPersonajes) => {
 
   mostrarPersonajes.forEach((personaje) => {
     rowContainer.innerHTML += `
-                <div class="col-3 my-3 d-flex justify-content-center mb-5" data-id=${personaje.id}>
+                <div class="col-sm-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center mb-5" data-id=${personaje.id}>
               <div class="card p-5" style="width: 25rem">
                 <img
                   src=${personaje.imagen}
