@@ -34,6 +34,9 @@ const personajes = [
 let copiaPersonajes = [...personajes];
 
 const rowContainer = document.querySelector("#rowContainer");
+const advertencia = document.querySelector("#advertencia");
+const reiniciar = document.querySelector("#reiniciar");
+const recargar = document.querySelector("#recargar");
 const formularioAgregarPersonaje = document.getElementById(
   "formularioAgregarPersonaje",
 );
@@ -93,8 +96,23 @@ formularioAgregarPersonaje.addEventListener("submit", (e) => {
     nombre: nombrePersonaje,
     imagen: imagenPersonaje,
   };
-
-  personajes.push(nuevoPersonaje);
+  if (nombrePersonaje === "" && imagenPersonaje === "") {
+    advertencia.innerHTML += `<h5 class="text-center text-danger">No se agregaron valores.</h5>`;
+  } else {
+    personajes.push(nuevoPersonaje);
+  }
 
   cargarPersonajes(personajes);
+});
+
+rowContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("btn-eliminar")) {
+    const personajeSeleccionado = e.target.closest(".col-3");
+    const idDelPersonaje = Number(personajeSeleccionado.dataset.id);
+
+    copiaPersonajes = personajes.filter((personaje) => {
+      return personaje.id !== idDelPersonaje;
+    });
+    personajeSeleccionado.remove();
+  }
 });
